@@ -31,15 +31,15 @@ Figma File → Design Tokens → Multi-Format Output → React Icons → Storybo
 
 ## Installation
 
-The repo root is the skill (its `SKILL.md` sits at the top level), so symlink the repo itself into Claude Code's skills folder:
+The whole repo is the skill (its `SKILL.md` is at the top level), so it needs to end up in Claude Code's skills folder under the name `design2code`. The simplest way is to clone it straight there:
 
 ```bash
-ln -s <path-to-repo> ~/.claude/skills/design2code
+git clone https://github.com/gilbertanderson/design2code.git ~/.claude/skills/design2code
 ```
 
-On Windows, use `mklink /D %USERPROFILE%\.claude\skills\design2code <path-to-repo>` from an elevated prompt, or copy the folder.
+On Windows the skills folder is `%USERPROFILE%\.claude\skills`. If you would rather keep the repo somewhere else, copy the folder into the skills folder, or create a link to it there.
 
-The four sub-skills (`figma-extract`, `theme-convert`, `figma-icons`, `theme-stories`) are read by `/design2code` from their folders and are not registered on their own. To call one directly as a slash command, symlink its folder too, for example `ln -s <path-to-repo>/figma-extract ~/.claude/skills/figma-extract`.
+The four sub-skills (`figma-extract`, `theme-convert`, `figma-icons`, `theme-stories`) are used by `/design2code` and are not available as their own slash commands. To run one by itself, copy or link its folder into the skills folder as well, for example `figma-extract` into `~/.claude/skills/figma-extract`.
 
 **Prerequisites:**
 - **Figma Desktop MCP** (preferred) OR Figma API token
