@@ -31,7 +31,15 @@ Figma File → Design Tokens → Multi-Format Output → React Icons → Storybo
 
 ## Installation
 
-Symlink the `skill/` directory of this repo into Claude Code, for example `ln -s <path-to-repo>/skill ~/.claude/skills/design2code`.
+The repo root is the skill (its `SKILL.md` sits at the top level), so symlink the repo itself into Claude Code's skills folder:
+
+```bash
+ln -s <path-to-repo> ~/.claude/skills/design2code
+```
+
+On Windows, use `mklink /D %USERPROFILE%\.claude\skills\design2code <path-to-repo>` from an elevated prompt, or copy the folder.
+
+The four sub-skills (`figma-extract`, `theme-convert`, `figma-icons`, `theme-stories`) are read by `/design2code` from their folders and are not registered on their own. To call one directly as a slash command, symlink its folder too, for example `ln -s <path-to-repo>/figma-extract ~/.claude/skills/figma-extract`.
 
 **Prerequisites:**
 - **Figma Desktop MCP** (preferred) OR Figma API token
@@ -161,7 +169,7 @@ design2code follows the conventions of the [MUI Importer & Exporter](https://git
 - Fonts used in the theme must be available in Figma, or typography import errors.
 - Colours must be hex, `rgb(a)`, or `hsl(a)`; named colours and `var(--x)` fail for that style.
 - Palette keys outside the supported list, and style names deeper than two levels, are ignored.
-- Examples: `skill/examples/mui-plugin/` (fixtures from the plugin repo). See `SUPERPOWER.md` for pipeline flags.
+- Examples: `examples/mui-plugin/` (fixtures from the plugin repo). See `SUPERPOWER.md` for pipeline flags.
 
 ## Output Files
 
