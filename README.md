@@ -31,15 +31,39 @@ Figma File → Design Tokens → Multi-Format Output → React Icons → Storybo
 
 ## Installation
 
-The whole repo is the skill (its `SKILL.md` is at the top level), so it needs to end up in Claude Code's skills folder under the name `design2code`. The simplest way is to clone it straight there:
+The skill lives in the `skill/` folder of this repo. Clone the repo, then copy `skill/` into Claude Code's skills folder under the name `design2code`:
 
 ```bash
-git clone https://github.com/gilbertanderson/design2code.git ~/.claude/skills/design2code
+git clone https://github.com/gilbertanderson/design2code.git
+cp -r design2code/skill ~/.claude/skills/design2code
 ```
 
-On Windows the skills folder is `%USERPROFILE%\.claude\skills`. If you would rather keep the repo somewhere else, copy the folder into the skills folder, or create a link to it there.
+On Windows (PowerShell), the skills folder is `$env:USERPROFILE\.claude\skills`:
 
-The four sub-skills (`figma-extract`, `theme-convert`, `figma-icons`, `theme-stories`) are used by `/design2code` and are not available as their own slash commands. To run one by itself, copy or link its folder into the skills folder as well, for example `figma-extract` into `~/.claude/skills/figma-extract`.
+```powershell
+git clone https://github.com/gilbertanderson/design2code.git
+Copy-Item -Recurse design2code\skill "$env:USERPROFILE\.claude\skills\design2code"
+```
+
+After copying, `~/.claude/skills/design2code/SKILL.md` should exist, and `/design2code` is available in Claude Code. To update later, pull the repo and copy `skill/` over again.
+
+The four sub-skills (`figma-extract`, `theme-convert`, `figma-icons`, `theme-stories`) are inside `skill/` and are used by `/design2code`. They are not available as their own slash commands. To run one by itself, copy its folder from `skill/` into the skills folder as well, for example `skill/figma-extract` into `~/.claude/skills/figma-extract`.
+
+**Repository layout**
+
+```
+design2code/
+├── README.md
+├── skill/                  # the skill: copy this folder into ~/.claude/skills/design2code
+│   ├── SKILL.md            # entry point for /design2code
+│   ├── SUPERPOWER.md       # full pipeline instructions
+│   ├── figma-extract/SKILL.md
+│   ├── theme-convert/SKILL.md
+│   ├── figma-icons/SKILL.md
+│   └── theme-stories/SKILL.md
+└── examples/
+    └── mui-plugin/         # fixtures from the MUI Figma plugin
+```
 
 **Prerequisites:**
 - **Figma Desktop MCP** (preferred) OR Figma API token
@@ -169,7 +193,7 @@ design2code follows the conventions of the [MUI Importer & Exporter](https://git
 - Fonts used in the theme must be available in Figma, or typography import errors.
 - Colours must be hex, `rgb(a)`, or `hsl(a)`; named colours and `var(--x)` fail for that style.
 - Palette keys outside the supported list, and style names deeper than two levels, are ignored.
-- Examples: `examples/mui-plugin/` (fixtures from the plugin repo). See `SUPERPOWER.md` for pipeline flags.
+- Examples: `examples/mui-plugin/` (fixtures from the plugin repo). See `skill/SUPERPOWER.md` for pipeline flags.
 
 ## Output Files
 
@@ -456,10 +480,10 @@ Found a bug or want to improve a sub-skill?
 
 1. Identify affected sub-skill
 2. Edit relevant `SKILL.md` file:
-   - `figma-extract/SKILL.md`
-   - `theme-convert/SKILL.md`
-   - `figma-icons/SKILL.md`
-   - `theme-stories/SKILL.md`
+   - `skill/figma-extract/SKILL.md`
+   - `skill/theme-convert/SKILL.md`
+   - `skill/figma-icons/SKILL.md`
+   - `skill/theme-stories/SKILL.md`
 3. Test sub-skill independently
 4. Test full pipeline
 
@@ -485,7 +509,7 @@ Part of Claude Code skills - see main repository for license.
 
 ## Support
 
-- **Documentation:** This README + sub-skill SKILL.md files
+- **Documentation:** This README + the SKILL.md files in `skill/`
 - **Issues:** Report via Claude Code issue tracker
 - **Examples:** See `examples/` directory
 
